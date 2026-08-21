@@ -4,8 +4,8 @@ This repository contains exercises and assignments for GEOG 592.
 
 ## Student information
 
-Name:
+Name: Darrin Taylor
 
-ONYEN:
+ONYEN: amadar
 
-GitHub username:
+GitHub username: Dtaylor8047
