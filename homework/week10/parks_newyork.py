@@ -3,14 +3,17 @@
 
 # In[68]:
 
-
-import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon, Ellipse
 from matplotlib.backends.backend_pdf import PdfPages 
 from shapely import wkt
+import argparse
 
+parser = argparse.ArgumentParser(
+    description= 'A program that makes an Atlas'
+)
+parser.add_argument('statefp', help='The STATEFP code: for example the STATEFP for North Carolina is 37')
 
 # In[ ]:
 
@@ -26,20 +29,20 @@ url_state = "cb_2024_us_state_500k.zip"
 
 counties = gpd.read_file(url_0 + url_county)
 ny_counties = counties.loc[counties['STATEFP']== statefp].to_crs(4326)
-ny_counties.plot(edgecolor='black', facecolor='pink')
+#ny_counties.plot(edgecolor='black', facecolor='pink')
 
 
 # In[71]:
 
 
-parks = gpd.read_file("State_Park_Facility_Points_20261028.csv")
-parks
+parks = gpd.read_file("homework/week10/State_Park_Facility_Points_20261028.csv")
+#parks
 
 
 # In[72]:
 
 
-ny_counties
+#ny_counties
 
 
 # In[73]:
@@ -51,7 +54,7 @@ parks['Georeference'] = parks['Georeference'].apply(wkt.loads)
 # In[74]:
 
 
-park_pts = gpd.GeoDataFrame(parks, geometry=parks['Georeference']).set_crs(2261, allow_override=True)
+park_pts = gpd.GeoDataFrame(parks, geometry=parks['Georeference']).set_crs(4326, allow_override=True)
 
 
 # In[75]:
@@ -75,8 +78,8 @@ print(parks_fixed.geometry.head())
 # In[76]:
 
 
-parks_fixed.plot()
-ny_counties.plot()
+#parks_fixed.plot()
+#ny_counties.plot()
 
 
 # In[77]:
@@ -88,21 +91,21 @@ ny_parks = gpd.sjoin(parks_fixed, ny_counties, 'inner', 'within')
 # In[78]:
 
 
-ny_parks
+#ny_parks
 
 
 # In[79]:
 
 
 counts = ny_parks['NAME'].value_counts('index_right')
-counts
+#counts
 
 
 # In[80]:
 
 
 num_counts = counts * 253
-num_counts
+#num_counts
 
 
 # In[81]:
